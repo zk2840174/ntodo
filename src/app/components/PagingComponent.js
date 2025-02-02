@@ -11,21 +11,22 @@ const PagingComponent = ({pagingData, targetPath}) => {
 
     return (
         <>
-            <ul>
-                {prev ?? 
-                <li>
-                    prev
+            <ul className="flex justify-center text-center m-1 p-1" >
+                {prev &&
+                <li className="flex justify-center text-center p-1">
+                    <Link href={`${targetPath}?page=${start -1 }&size=${size}`}>Prev</Link>
                 </li>
                 }
                 
-                {makeArray(start, end).map(page => <li key={page}> 
-                    <Link href={`${targetPath}?page=${page}&size=${size}`}>{page}</Link>
-                </li>
+                {makeArray(start, end).map(page =>
+                    <li key={page} className="flex justify-center text-center m-1 p-1 border-2 border-cyan-400">
+                      <Link href={`${targetPath}?page=${page}&size=${size}`}>{page}</Link>
+                    </li>
                 )}
 
-                {next ?? 
-                <li>
-                    next
+                {next &&
+                <li className="flex justify-center text-center p-1">
+                    <Link href={`${targetPath}?page=${end + 1 }&size=${size}`}>Next</Link>
                 </li>
                 }
 

@@ -3,14 +3,11 @@ import PagingComponent from "@/app/components/PagingComponent";
 import Link from "next/link";
 
 
-
 export const dynamic = 'force-dynamic'
 
 export default async function TodoListPage({searchParams}) {
 
   const {page, size}  =  (await searchParams)
-  
-  console.log(page, size)
 
   try {
     const res = await fetch(`http://localhost:8080/api/v1/todos/list?page=${page || 1}&size=${size || 10}`, {next: {revalidate: 60}});
@@ -29,25 +26,15 @@ export default async function TodoListPage({searchParams}) {
       <ul>
         {todos.map(todo => (
           <li key={todo.tno}>
-            {todo.tno} -- {todo.title}
+            <Link href={`/todo/${todo.tno}`}>
+              {todo.tno} -- {todo.title}
+            </Link>
           </li>
         ))}
       </ul>
 
       <div>
 
-        <ul>
-          <li>
-            <Link href={'/todo/list?page=1'}>1</Link>
-          </li>
-          <li>
-            <Link href={'/todo/list?page=2'}>2</Link>
-          </li>
-          <li>
-            <Link href={'/todo/list?page=3'}>3</Link>
-          </li>
-        </ul>
-        
         <PagingComponent pagingData={responseDTO} targetPath={'/todo/list'} ></PagingComponent>
 
       </div>  

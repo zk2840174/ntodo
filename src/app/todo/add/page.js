@@ -2,6 +2,7 @@
 'use client'
 
 import { postTodoAdd, refreshTodoList } from "@/app/lib/actions"
+import {redirect} from "next/navigation";
 
 export default function AppPage () {
 
@@ -27,6 +28,8 @@ export default function AppPage () {
             console.log(result)
             refreshTodoList()
             e.target.reset()
+
+            redirect('/todo/list')
         })
 
     }
